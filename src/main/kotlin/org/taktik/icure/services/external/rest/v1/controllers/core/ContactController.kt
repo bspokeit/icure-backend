@@ -315,8 +315,9 @@ class ContactController(private val filters: org.taktik.icure.asynclogic.impl.fi
 
         val paginationOffset = PaginationOffset(null, startDocumentId, null, realLimit+1)
 
-        val services: List<ServiceDto> = filterChainMapper.map(filterChain).applyTo(contactLogic.filterServices(paginationOffset, filterChainMapper.map(filterChain)))
+        val services: List<ServiceDto> = contactLogic.filterServices(paginationOffset, filterChainMapper.map(filterChain))
                 .map { serviceMapper.map(it) }.toList()
+
 
         val totalSize = services.size // TODO SH AD: this is wrong! totalSize is ids.size from filterServices, which can be retrieved from the TotalCount ViewQueryResultEvent, but we can't easily recover it...
 
